@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}Marvellous{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="{% static 'store/styles.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="{% static 'store/min.jquery.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{% static 'store/store.js' %}"></script>
+    {% block script %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <ul id="dropdown1" class="dropdown-content teal-text accent-4">
+        <li><a href="{% url 'cart' %}">Cart</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+    <nav class="teal accent-4 z-depth-0">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="/" class="brand-logo">Marvellous</a>
+                <ul id="nav-mobile" class="right white-text">
+                    {% if user.is_authenticated %}
+                    <li><a class="dropdown-trigger" href="#!"
+                            data-target="dropdown1"><strong>{{user.username}}</strong><i
+                                class="material-icons right">arrow_drop_down</i></a>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block sidevav %}
+    {% endblock sidevav %}
+
+    <div class="body">
+        {% block body %}
+        {% endblock %}
+    </div>
+
+</body>
+
+</html>
