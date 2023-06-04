@@ -30,15 +30,15 @@
 <a href="#" data-target="slide-out" class="black-text sidenav-trigger hide-on-large-only"><i
         class="material-icons">menu</i></a>
 <div class="row" style="margin: 10px;">
-
+    <h3 class="">{{ category_name }}</h3>
     {% for product in products %}
     <div class="col s12 l4 m6 s12">
         <a href="{% url 'product' product.id %}" class="black-text">
-            <div class="card large z-depth-1">
+            <div class="card z-depth-1">
                 <div class="card-image">
                     <img src="{{ product.img }}">
                 </div>
-                <div class="card-content" style="border-top: 2px dashed; height:max-content">
+                <div class="card-content" style="border-top: 2px dashed;">
                     <p>{{ product.name }}</p>
                     <strong>N{{ product.price }}</strong>
                 </div>

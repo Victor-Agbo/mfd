@@ -10,6 +10,7 @@ urlpatterns = [
     path("remove/<int:product_id>", views.remove_from_cart, name="remove"),
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
+    path("operator", views.operator, name="operator"),
     path("order/<int:product_id>", views.order, name="order"),
     path("product/<int:product_id>", views.product_view, name="product"),
     path("register", views.register, name="register"),

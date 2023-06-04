@@ -31,7 +31,14 @@ def index(request):
     products = models.Product.objects.all()
     categories = models.Category.objects.all()
     return render(
-        request, "store/index.html", {"products": products, "categories": categories}
+        request,
+        "store/index.html",
+        {
+            "products": products,
+            "categories": categories,
+            "category_name": "All Items",
+            "show_side": "show_side",
+        },
     )
 
 
@@ -39,7 +46,9 @@ def index(request):
 def cart(request):
     user = models.User.objects.get(username=request.user)
     cart_items = user.cart.all()
-    return render(request, "store/cart.html", {"cart_items": cart_items})
+    return render(
+        request, "store/cart.html", {"cart_items": cart_items, "show_side": "show_side"}
+    )
 
 
 def category(request, category_name):
@@ -47,7 +56,14 @@ def category(request, category_name):
     products = models.Product.objects.filter(category=category_id)
     categories = models.Category.objects.all()
     return render(
-        request, "store/index.html", {"products": products, "categories": categories}
+        request,
+        "store/index.html",
+        {
+            "products": products,
+            "categories": categories,
+            "category_name": category_name,
+            "show_side": "show_side",
+        },
     )
 
 
@@ -96,6 +112,11 @@ def order(request, product_id):
 
 
 @login_required
+def operator(request):
+    pass
+
+
+@login_required
 def product_view(request, product_id):
     product = models.Product.objects.get(id=product_id)
     user = models.User.objects.get(username=request.user)
@@ -105,7 +126,11 @@ def product_view(request, product_id):
     else:
         add = "Add to Cart"
     print(product)
-    return render(request, "store/product.html", {"product": product, "add": add})
+    return render(
+        request,
+        "store/product.html",
+        {"product": product, "add": add, "show_side": "show_side"},
+    )
 
 
 def register(request):
