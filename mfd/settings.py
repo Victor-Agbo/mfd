@@ -32,7 +32,11 @@ SECRET_KEY = os.environ.get(
 # DEBUG = True
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = ["web-production-ab11.up.railway.app", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "web-production-ab11.up.railway.app",
+    "marvellous.up.railway.app",
+    "127.0.0.1",
+]
 
 CSRF_TRUSTED_ORIGINS = ["https://web-production-ab11.up.railway.app"]
 

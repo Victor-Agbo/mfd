@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
-
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
+from django.contrib.auth.models import Group
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -115,7 +115,32 @@ def order(request, product_id):
 
 @login_required
 def operator(request):
-    return render(request, "store/operator.html", {"show_side": "show_side"})
+    # operators_group = Group.objects.get(name="Operator")
+
+    # if not request.user.groups.filter(name=operators_group).exists():
+    #     return HttpResponseForbidden("You don't have access to this page.")
+
+    if request.method == "POST":
+        category = request.POST.get("add_product_category", "")
+        category = models.Category.objects.get(name=category)
+        name = request.POST.get("add_product_name", "")
+        description = request.POST.get("add_product_category", "")
+        price = request.POST.get("add_product_price", "")
+        url = request.POST.get("add_product_url", "")
+
+        new_product = models.Product(
+            category=category, name=name, description=description, price=price, img=url
+        )
+        new_product.save()
+        return HttpResponseRedirect(reverse("operator"))
+
+    else:
+        categories = models.Category.objects.all()
+        return render(
+            request,
+            "store/operator.html",
+            {"categories": categories, "show_side": "show_side"},
+        )
 
 
 @login_required
