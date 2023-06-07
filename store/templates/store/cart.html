@@ -2,40 +2,20 @@
 
 {% load static %}
 
-{% block body %}
-
 {% block sidenav %}
-<ul id="slide-out" class="sidenav sidenav-fixed">
-    <li>
-        <div class="user-view">
-            <div class="background">
-                <img style="height: 100%; width: 100%;"
-                    src="http://images.fineartamerica.com/images-medium-large-5/evening-teal-rose-flower-jennie-marie-schell.jpg">
-            </div>
-            <a href="#user"><img class="circle"
-                    src="https://i.pinimg.com/736x/c9/bd/c9/c9bdc9b150b8210c5dc8f47cffaa6358.jpg"></a>
-            <a href="#name"><span class="white-text name">John Doe</span></a>
-            <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div>
-    </li>
-    {% for category in categories %}
-    <li><a href="#!">{{ category}}</a></li>
-    {% endfor %}
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-</ul>
+{% for category in categories %}
+<li><a href="{% url 'category' category %}">{{ category}}</a></li>
+{% endfor %}
 
 {% endblock sidenav %}
+
+{% block body %}
 <div class="container">
     <h3 class="">Your Cart</h3>
 
     {% for item in cart_items %}
     <a href="{% url 'product' item.id %}" style="color: black;">
-        <div
-            style=" border: 2px; border-radius: 5px; border-style: dashed; display: flex; justify-content: center; margin: 5px;">
+        <div class="cart-item">
             <div style="height: 100px; width: 100px;"><img src="{{ item.img }}" alt="image"
                     style="height: 90%; width: 90%; margin: 5%; "></div>
 
@@ -48,7 +28,8 @@
         </div>
     </a>
     {% empty %}
-    <blockquote style="border-color: #00bfa5;">No items in your cart yet... <br> Add items, and they'll appeart here!</blockquote>
+    <blockquote style="border-color: #00bfa5;">No items in your cart yet... <br> Add items, and they'll appeart here!
+    </blockquote>
     {% endfor %}
 </div>
 

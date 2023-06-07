@@ -46,8 +46,11 @@ def index(request):
 def cart(request):
     user = models.User.objects.get(username=request.user)
     cart_items = user.cart.all()
+    categories = models.Category.objects.all()
     return render(
-        request, "store/cart.html", {"cart_items": cart_items, "show_side": "show_side"}
+        request,
+        "store/cart.html",
+        {"cart_items": cart_items, "show_side": "show_side", "categories": categories},
     )
 
 
@@ -85,7 +88,6 @@ def login_view(request):
         password = request.POST.get("password", "")
 
         user = authenticate(request, username=username, password=password)
-        print(user)
         # Check if authentication successful
         if user is not None:
             login(request, user)
@@ -113,7 +115,7 @@ def order(request, product_id):
 
 @login_required
 def operator(request):
-    pass
+    return render(request, "store/operator.html", {"show_side": "show_side"})
 
 
 @login_required
@@ -125,7 +127,7 @@ def product_view(request, product_id):
         add = "Remove From Cart"
     else:
         add = "Add to Cart"
-    print(product)
+
     return render(
         request,
         "store/product.html",

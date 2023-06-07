@@ -48,6 +48,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 ]
 
+LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "/login"
+
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",

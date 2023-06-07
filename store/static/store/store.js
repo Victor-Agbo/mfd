@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Handler for .ready() called.
-    $(".dropdown-trigger").dropdown({ "hover": true });
+    $(".dropdown-trigger").dropdown({ "hover": false });
     $('.materialboxed').materialbox();
     $('.sidenav').sidenav();
 });

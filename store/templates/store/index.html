@@ -2,39 +2,26 @@
 
 {% load static %}
 
-{% block body %}
 
 {% block sidenav %}
-<ul id="slide-out" class="sidenav sidenav-fixed">
-    <li>
-        <div class="user-view">
-            <div class="background">
-                <img style="height:min-content" src="http://cdn.wallpapersafari.com/83/75/8qVscv.jpg">
-            </div>
-            <a href="#user"><img class="circle"
-                    src="https://i.pinimg.com/736x/c9/bd/c9/c9bdc9b150b8210c5dc8f47cffaa6358.jpg"></a>
-            <a href="#name"><span class="white-text name">John Doe</span></a>
-            <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div>
-    </li>
-    {% for category in categories %}
-    <li><a href="{% url 'category' category %}">{{ category}}</a></li>
-    {% endfor %}
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-</ul>
+
+
+{% for category in categories %}
+<li><a href="{% url 'category' category %}">{{ category}}</a></li>
+{% endfor %}
+
 {% endblock sidenav %}
+
+{% block body %}
+
 <a href="#" data-target="slide-out" class="black-text sidenav-trigger hide-on-large-only"><i
         class="material-icons">menu</i></a>
 <div class="row" style="margin: 10px;">
-    <h3 class="">{{ category_name }}</h3>
+    <h3 class="category_name">{{ category_name }}</h3>
     {% for product in products %}
     <div class="col s12 l4 m6 s12">
         <a href="{% url 'product' product.id %}" class="black-text">
-            <div class="card z-depth-1">
+            <div class="card" style="border: 1px #d8d8d8 solid;">
                 <div class="card-image">
                     <img src="{{ product.img }}">
                 </div>
@@ -48,6 +35,4 @@
     {% endfor %}
 
 </div>
-
-
 {% endblock body %}

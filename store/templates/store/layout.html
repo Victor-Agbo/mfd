@@ -4,7 +4,8 @@
 <html lang="en">
 
 <head>
-    <title>{% block title %}Marvellous{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Marvellous{% endblock title %}</title>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -15,42 +16,66 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="{% static 'store/store.js' %}"></script>
     {% block script %}
-    {% endblock %}
+    {% endblock script %}
 </head>
 
 <body class="{{ show_side }}">
 
-    <ul id="dropdown1" class="dropdown-content teal-text accent-4">
-        <li><a href="{% url 'cart' %}">Cart</a></li>
-        <li class="divider"></li>
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-    </ul>
+
     <nav class="teal accent-4 z-depth-0">
         <div class="container">
             <div class="nav-wrapper">
                 <a href="/" class="brand-logo">Marvellous</a>
                 <ul id="nav-mobile" class="right white-text">
-                    {% if user.is_authenticated %}
-                    <li><a class="dropdown-trigger" href="#!"
-                            data-target="dropdown1"><strong>{{user.username}}</strong><i
-                                class="material-icons right">arrow_drop_down</i></a>
+                    <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i
+                                class="material-icons right">account_box</i></a>
                     </li>
-                    {% else %}
-                    <li><a href="{% url 'register' %}">Register</a></li>
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <ul id="dropdown1" class="dropdown-content teal-text accent-4">
 
-                    {% endif %}
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'cart' %}">Cart</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+
+                        {% else %}
+                        <li><a href="{% url 'register' %}">Register</a></li>
+                        <li><a href="{% url 'login' %}">Login</a></li>
+
+                        {% endif %}
+                    </ul>
                 </ul>
             </div>
         </div>
     </nav>
+    {% if user.is_authenticated or show_side == "show_side" %}
+    <ul id="slide-out" class="sidenav sidenav-fixed">
+        <li>
+            <div class="user-view">
+                <div class="background">
+                    <img style="height: 100%; width: 100%;"
+                        src="http://images.fineartamerica.com/images-medium-large-5/evening-teal-rose-flower-jennie-marie-schell.jpg">
+                </div>
+                <a href="#user"><img class="circle"
+                        src="https://ih1.redbubble.net/image.2023738654.5938/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg"></a>
+                <a href="#name"><span class="white-text name">{{ request.user }}</span></a>
+                <a href="#email"><span class="white-text email">{{ request.user.email }}</span></a>
+            </div>
+        </li>
 
-    {% block sidevav %}
-    {% endblock sidevav %}
+        {% block sidenav %}
+        {% endblock sidenav %}
 
+        <li id="sidenav-footer">
+            <div class="divider"></div>
+        </li>
+        <li><a class="subheader">More...</a></li>
+        <li><a class="waves-effect" href="#!">About</a></li>
+
+    </ul>
+    {% endif %}
     <div class="body">
         {% block body %}
-        {% endblock %}
+        {% endblock body %}
     </div>
 
 </body>
