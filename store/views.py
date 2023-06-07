@@ -13,6 +13,23 @@ from . import models
 # Create your views here.
 
 
+@login_required
+def add_category(request):
+    # operators_group = Group.objects.get(name="Operator")
+
+    # if not request.user.groups.filter(name=operators_group).exists():
+    #     return HttpResponseForbidden("You don't have access to this page.")
+
+    if request.method == "POST":
+        category = request.POST.get("add_category", "")
+
+        new_category = models.Category(name=category)
+        new_category.save()
+        return HttpResponseRedirect(reverse("operator"))
+
+    else:
+        return HttpResponseRedirect(reverse("operator"))
+
 def add_to_cart(request, product_id):
     to_add = models.Product.objects.get(id=product_id)
     user = models.User.objects.get(username=request.user)

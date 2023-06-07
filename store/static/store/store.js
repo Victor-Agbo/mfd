@@ -11,6 +11,11 @@ $(document).ready(function () {
         $('#form-overlay').fadeIn();
     });
 
+    $('#add_category_li').click(function () {
+        $('#form_add_category').fadeIn();
+        $('#form-overlay').fadeIn();
+    });
+
     $('#form-overlay').click(function () {
         $('#form-container').fadeOut();
         $('#form-overlay').fadeOut();
