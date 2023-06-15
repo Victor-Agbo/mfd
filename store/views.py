@@ -1,13 +1,9 @@
 from django.shortcuts import render, redirect
-import json
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponseForbidden
-from django.contrib.auth.models import Group
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from . import models
 
 # Create your views here.

@@ -1,7 +1,7 @@
 {% extends "store/layout.html" %}
 
 {% load static %}
-
+{% load humanize %}
 
 {% block sidenav %}
 
@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-content" style="border-top: 2px dashed;">
                     <p>{{ product.name }}</p>
-                    <strong>N{{ product.price }}</strong>
+                    <strong>₦{{ product.price|floatformat:0|intcomma }}</strong>
                 </div>
             </div>
         </a>
