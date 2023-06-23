@@ -139,12 +139,14 @@ def operator(request):
         name = request.POST.get("add_product_name", "")
         description = request.POST.get("add_product_category", "")
         price = request.POST.get("add_product_price", "")
-        url = request.POST.get("add_product_url", "")
+        img = request.POST.get("add_product_img", "")
 
-        new_product = models.Product(
-            category=category, name=name, description=description, price=price, img=url
-        )
-        new_product.save()
+        print(img)
+
+        # new_product = models.Product(
+        #     category=category, name=name, description=description, price=price, img=img
+        # )
+        # new_product.save()
         return HttpResponseRedirect(reverse("operator"))
 
     else:

@@ -30,6 +30,7 @@ class Product(models.Model):
     name = models.CharField(max_length=256)
     price = models.DecimalField(blank=False, decimal_places=2, max_digits=16)
     img = models.CharField(max_length=512)
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
 class Order(models.Model):
     def __str__(self) -> str:

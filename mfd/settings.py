@@ -59,6 +59,11 @@ INSTALLED_APPS = [
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/login"
 
+# settings.py
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

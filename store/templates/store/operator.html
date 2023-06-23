@@ -24,20 +24,29 @@
     <div id="form-container">
         <form id="my-form" action="{% url 'operator' %}" method="post">
             {% csrf_token %}
-        <!-- Add your form fields here -->
-        <div class="input-field">
-            <select name="add_product_category" id="add_product_category" class="browser-default">
-                <option value="" disabled selected>Pick a category</option>
-                {% for category in categories %}
-                <option value="{{ category}}">{{ category}}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <input type="text" name="add_product_name" placeholder="Name">
-        <input type="text" name="add_product_description" placeholder="Description">
-        <input type="number" name="add_product_price" id="add_product_price">
-        <input type="url" name="add_product_url" id="add_product_price" placeholder="Image Url">
-        <button class="btn cyan darken-3" type="submit">Submit</button>
+            <!-- Add your form fields here -->
+            <div class="input-field">
+                <select name="add_product_category" id="add_product_category" class="browser-default">
+                    <option value="" disabled selected>Pick a category</option>
+                    {% for category in categories %}
+                    <option value="{{ category}}">{{ category}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="text" name="add_product_name" placeholder="Name">
+            <input type="text" name="add_product_description" placeholder="Description">
+            <input type="number" name="add_product_price" id="add_product_price">
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" accept="image/*">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text" name="add_product_img" id="add_product_img"
+                        placeholder="Image">
+                </div>
+            </div>
+            <button class="btn cyan darken-3" type="submit">Submit</button>
         </form>
     </div>
 
@@ -49,22 +58,6 @@
         </form>
     </div>
 
-
-    <!-- {% for product in products %}
-    <div class="col s12 l4 m6 s12">
-        <a href="{% url 'product' product.id %}" class="black-text">
-            <div class="card" style="border: 1px #d8d8d8 solid;">
-                <div class="card-image">
-                    <img src="{{ product.img }}">
-                </div>
-                <div class="card-content" style="border-top: 2px dashed;">
-                    <p>{{ product.name }}</p>
-                    <strong>N{{ product.price }}</strong>
-                </div>
-            </div>
-        </a>
-    </div>
-    {% endfor %} -->
 
 </div>
 {% endblock body %}
