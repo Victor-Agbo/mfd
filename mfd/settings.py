@@ -42,6 +42,7 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     "https://web-production-ab11.up.railway.app",
     "https://marvellous.up.railway.app",
+    "https://mfd--victoragbo.repl.co",
 ]
 
 # Application definition
