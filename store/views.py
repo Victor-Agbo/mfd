@@ -4,6 +4,9 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+import os
+from datetime import datetime
 from . import models
 
 # Create your views here.
@@ -25,6 +28,7 @@ def add_category(request):
 
     else:
         return HttpResponseRedirect(reverse("operator"))
+
 
 def add_to_cart(request, product_id):
     to_add = models.Product.objects.get(id=product_id)
@@ -126,6 +130,12 @@ def order(request, product_id):
     pass
 
 
+def generate_name(name, ext):
+    now = datetime.now()
+    print(now)
+    return f"{name}-{now.year}_{now.month}_{now.day}-{now.hour}_{now.minute}_{now.second}.{ext}"
+
+
 @login_required
 def operator(request):
     # operators_group = Group.objects.get(name="Operator")
@@ -136,17 +146,29 @@ def operator(request):
     if request.method == "POST":
         category = request.POST.get("add_product_category", "")
         category = models.Category.objects.get(name=category)
+
         name = request.POST.get("add_product_name", "")
         description = request.POST.get("add_product_category", "")
-        price = request.POST.get("add_product_price", "")
-        img = request.POST.get("add_product_img", "")
 
+        price = request.POST.get("add_product_price", "")
+        img = request.FILES["add_product_img"]
+        new_file_name = generate_name(request.user, img.name.split(".")[-1])
+        file_path = os.path.join(settings.MEDIA_ROOT, "store/images", new_file_name)
+        with open(file_path, "wb") as f:
+            for chunk in img.chunks():
+                f.write(chunk)
+        # Handle successful upload
+        print(new_file_name)
         print(img)
 
-        # new_product = models.Product(
-        #     category=category, name=name, description=description, price=price, img=img
-        # )
-        # new_product.save()
+        new_product = models.Product(
+            category=category,
+            name=name,
+            description=description,
+            price=price,
+            image=new_file_name,
+        )
+        new_product.save()
         return HttpResponseRedirect(reverse("operator"))
 
     else:

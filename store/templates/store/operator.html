@@ -22,30 +22,32 @@
     <div id="form-overlay"></div>
 
     <div id="form-container">
-        <form id="my-form" action="{% url 'operator' %}" method="post">
+        <form id="my-form" action="{% url 'operator' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <!-- Add your form fields here -->
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
             <div class="input-field">
-                <select name="add_product_category" id="add_product_category" class="browser-default">
+                <select name="add_product_category" id="add_product_category" class="browser-default" required>
                     <option value="" disabled selected>Pick a category</option>
                     {% for category in categories %}
                     <option value="{{ category}}">{{ category}}</option>
                     {% endfor %}
                 </select>
             </div>
-            <input type="text" name="add_product_name" placeholder="Name">
+            <input type="text" name="add_product_name" placeholder="Name" required>
             <input type="text" name="add_product_description" placeholder="Description">
-            <input type="number" name="add_product_price" id="add_product_price">
+            <input type="number" name="add_product_price" id="add_product_price" required>
             <div class="file-field input-field">
                 <div class="btn">
                     <span>File</span>
-                    <input type="file" accept="image/*">
+                    <input type="file" accept="image/*" name="add_product_img" id="add_product_img">
                 </div>
                 <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" name="add_product_img" id="add_product_img"
-                        placeholder="Image">
+                    <input class="file-path validate" type="text" placeholder="Image">
                 </div>
             </div>
+            <!-- upload_image.html -->
+
             <button class="btn cyan darken-3" type="submit">Submit</button>
         </form>
     </div>

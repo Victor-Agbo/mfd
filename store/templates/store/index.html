@@ -23,7 +23,7 @@
         <a href="{% url 'product' product.id %}" class="black-text">
             <div class="card" style="border: 1px #d8d8d8 solid;">
                 <div class="card-image">
-                    <img src="{{ product.img }}">
+                    <img src="/media/store/images/{{ product.image }}" alt="Image">
                 </div>
                 <div class="card-content" style="border-top: 2px dashed;">
                     <p>{{ product.name }}</p>
