@@ -35,6 +35,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 ALLOWED_HOSTS = [
     "web-production-ab11.up.railway.app",
     "marvellous.up.railway.app",
+    "mfd--victoragbo.repl.co",
     "127.0.0.1",
 ]
 
@@ -61,8 +62,8 @@ LOGIN_REDIRECT_URL = "/login"
 
 # settings.py
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 
 MIDDLEWARE = [
