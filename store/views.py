@@ -250,7 +250,7 @@ def register(request):
             return render(
                 request, "store/register.html", {"message": "Username already taken."}
             )
-        login(request)
+        login(request, user)
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "store/register.html")
