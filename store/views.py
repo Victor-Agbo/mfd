@@ -139,10 +139,10 @@ def generate_name(name, ext):
 
 @login_required
 def operator(request):
-    operators_group = Group.objects.get(name="Operator")
+    # operators_group = Group.objects.get(name="Operator")
 
-    if not request.user.groups.filter(name=operators_group).exists():
-        return HttpResponseForbidden("You don't have access to this page.")
+    # if not request.user.groups.filter(name=operators_group).exists():
+    #     return HttpResponseForbidden("You don't have access to this page.")
 
     if request.method == "POST":
         category = request.POST.get("add_product_category", "")
