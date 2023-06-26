@@ -1,10 +1,15 @@
 {% extends "store/layout.html" %}
 
 {% load static %}
+{% load humanize %}
 
 
 {% block sidenav %}
 <li id="add_category_li"><a href="#!"> Add Category</a></li>
+<li><a href="{% url 'operator' %}">All categories</a></li>
+{% for category in categories %}
+<li><a href="{% url 'op_category' category %}">{{ category}}</a></li>
+{% endfor %}
 {% endblock sidenav %}
 
 {% block body %}
@@ -13,11 +18,31 @@
         class="material-icons">menu</i></a>
 <div class="row" style="margin: 20px; position: relative;">
     <h3 class="category_name">Operator's Dashboard</h3>
-    <div style="position: absolute; top: 0px; right: 0px;">
+    <div style="margin: 20px;">
         <button class="waves-effect waves-light btn-large cyan darken-3" id="show-form-button"><i
                 class="material-icons left">add</i>Add Product</button>
     </div>
+    {% for product in products %}
+    <div class="cart-item">
+        <a href="{% url 'product' product.id %}" style="color: black;">
+            <div style="height: 100px; width: 100px;"><img src="/media/store/images/{{ product.image }}" alt="image"
+                    style="height: 90%; width: 90%; margin: 5%; "></div>
+        </a>
 
+        <div style="flex: 1; position: relative;">
+            <span class="" style="padding: 10px;">{{ product.name }}</span>
+            <span style="bottom: 10px; left: 10px; position: absolute; z-index: 1;" style="padding: 10px;">
+                ₦{{product.price|floatformat:0|intcomma }}</span>
+            <!-- <i class="material-icons black-text op_edit right"
+                style="padding-right: 10px; padding-top: 10px; z-index: 1;">edit</i> -->
+            <a href="{% url 'op_remove' product.id %}"><i class="material-icons black-text"
+                    style="bottom: 10px; right: 10px; position: absolute; z-index: 1;">delete_sweep</i></a>
+        </div>
+    </div>
+    {% empty %}
+    <blockquote style="border-color: #00bfa5;">No items in your store yet... <br> Add items, and they'll appeart here!
+    </blockquote>
+    {% endfor %}
 
     <div id="form-overlay"></div>
 

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import os
+from django.contrib.auth.models import Group
 from datetime import datetime
 from . import models
 
@@ -113,7 +114,7 @@ def login_view(request):
             return render(
                 request,
                 "store/login.html",
-                {"message": "Invalid username and/or password."},
+                {"message": "Invalid email and/or password."},
             )
     else:
         return render(request, "store/login.html")
@@ -138,10 +139,10 @@ def generate_name(name, ext):
 
 @login_required
 def operator(request):
-    # operators_group = Group.objects.get(name="Operator")
+    operators_group = Group.objects.get(name="Operator")
 
-    # if not request.user.groups.filter(name=operators_group).exists():
-    #     return HttpResponseForbidden("You don't have access to this page.")
+    if not request.user.groups.filter(name=operators_group).exists():
+        return HttpResponseForbidden("You don't have access to this page.")
 
     if request.method == "POST":
         category = request.POST.get("add_product_category", "")
@@ -172,16 +173,42 @@ def operator(request):
         return HttpResponseRedirect(reverse("operator"))
 
     else:
+        products = models.Product.objects.all()
         categories = models.Category.objects.all()
         return render(
             request,
             "store/operator.html",
-            {"categories": categories, "show_side": "show_side"},
+            {"categories": categories, "products": products, "show_side": "show_side"},
         )
 
 
 @login_required
+def op_category(request, category_name):
+    category_id = models.Category.objects.get(name=category_name).id
+    products = models.Product.objects.filter(category=category_id)
+    categories = models.Category.objects.all()
+    return render(
+        request,
+        "store/operator.html",
+        {
+            "products": products,
+            "categories": categories,
+            "category_name": category_name,
+            "show_side": "show_side",
+        },
+    )
+
+
+@login_required
+def op_remove(request, product_id):
+    to_remove = models.Product.objects.get(id=product_id)
+    to_remove.delete()
+    return HttpResponseRedirect(reverse("operator"))
+
+
+@login_required
 def product_view(request, product_id):
+    categories = models.Category.objects.all()
     product = models.Product.objects.get(id=product_id)
     user = models.User.objects.get(username=request.user)
 
@@ -193,7 +220,12 @@ def product_view(request, product_id):
     return render(
         request,
         "store/product.html",
-        {"product": product, "add": add, "show_side": "show_side"},
+        {
+            "product": product,
+            "add": add,
+            "categories": categories,
+            "show_side": "show_side",
+        },
     )
 
 

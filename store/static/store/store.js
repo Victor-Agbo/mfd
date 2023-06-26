@@ -6,6 +6,11 @@ $(document).ready(function () {
     $('.sidenav').sidenav();
     $('select').formSelect();
 
+    $('.op_edit').click(function () {
+        $('#form-container').fadeIn();
+        $('#form-overlay').fadeIn();
+    })
+
     $('#show-form-button').click(function () {
         $('#form-container').fadeIn();
         $('#form-overlay').fadeIn();

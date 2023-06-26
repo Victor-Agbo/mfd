@@ -63,13 +63,16 @@
         </li>
 
         {% block sidenav %}
+        {% for category in categories %}
+        <li><a href="{% url 'category' category %}">{{ category }}</a></li>
+        {% endfor %}
         {% endblock sidenav %}
 
         <li id="sidenav-footer">
             <div class="divider"></div>
         </li>
         <li><a class="subheader">More...</a></li>
-        <li><a class="waves-effect" href="">About</a></li>
+        <li><a class="waves-effect" href="#!">About</a></li>
 
     </ul>
     {% endif %}

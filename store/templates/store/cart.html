@@ -1,6 +1,7 @@
 {% extends "store/layout.html" %}
 
 {% load static %}
+{% load humanize %}
 
 {% block sidenav %}
 {% for category in categories %}
@@ -14,19 +15,21 @@
     <h3 class="">Your Cart</h3>
 
     {% for item in cart_items %}
-    <a href="{% url 'product' item.id %}" style="color: black;">
-        <div class="cart-item">
-            <div style="height: 100px; width: 100px;"><img src="{{ item.img }}" alt="image"
-                    style="height: 90%; width: 90%; margin: 5%; "></div>
 
-            <div style="flex: 1; position: relative;">
-                <span class="" style="padding: 10px;">{{ item.name }}</span>
-                <span class="right" style="padding: 10px;"><b>N {{ item.price }}</b></span>
-                <a href="{% url 'remove' item.id %}"><i class="material-icons black-text"
-                        style="bottom: 10px; right: 10px; position: absolute; z-index: 1;">delete_sweep</i></a>
-            </div>
+    <div class="cart-item">
+        <a href="{% url 'product' item.id %}" style="color: black;">
+            <div style="height: 100px; width: 100px;"><img src="/media/store/images/{{ item.image }}" alt="image"
+                    style="height: 90%; width: 90%; margin: 5%; "></div>
+        </a>
+
+        <div style="flex: 1; position: relative;">
+            <span class="" style="padding: 10px;">{{ item.name }}</span>
+            <span class="right" style="padding: 10px;"><b>₦{{ item.price|floatformat:0|intcomma }}</b></span>
+            <a href="{% url 'remove' item.id %}"><i class="material-icons black-text"
+                    style="bottom: 10px; right: 10px; position: absolute; z-index: 1;">delete_sweep</i></a>
         </div>
-    </a>
+    </div>
+
     {% empty %}
     <blockquote style="border-color: #00bfa5;">No items in your cart yet... <br> Add items, and they'll appeart here!
     </blockquote>

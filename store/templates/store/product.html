@@ -3,29 +3,7 @@
 {% load static %}
 
 {% block body %}
-{% block sidenav %}
-<ul id="slide-out" class="sidenav sidenav-fixed">
-    <li>
-        <div class="user-view">
-            <div class="background">
-                <img style="height:min-content" src="http://cdn.wallpapersafari.com/83/75/8qVscv.jpg">
-            </div>
-            <a href="#user"><img class="circle"
-                    src="https://i.pinimg.com/736x/c9/bd/c9/c9bdc9b150b8210c5dc8f47cffaa6358.jpg"></a>
-            <a href="#name"><span class="white-text name">John Doe</span></a>
-            <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
-        </div>
-    </li>
-    {% for category in categories %}
-    <li><a href="#!">{{ category}}</a></li>
-    {% endfor %}
-    <li>
-        <div class="divider"></div>
-    </li>
-    <li><a class="subheader">Subheader</a></li>
-    <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-</ul>
-{% endblock sidenav %}
+
 <div class="container">
     <h3 class="">{{ product.name }}</h3>
     <img class="materialboxed image-container" src="/media/store/images/{{ product.image }}">
