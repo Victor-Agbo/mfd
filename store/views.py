@@ -163,10 +163,10 @@ def logout_view(request):
 @login_required
 def order(request, product_id):
     product = models.Product.objects.get(id=product_id)
-
+    print(os.getenv('FLUTTERWAVE_KEY'))
     url = "https://api.flutterwave.com/v3/payments"
     headers = {
-        "Authorization": f"Bearer ${os.getenv('FLUTTERWAVE_KEY')}"
+        "Authorization": f"Bearer {os.getenv('FLUTTERWAVE_KEY')}"
     }
     json = {
         "tx_ref": generate_name(request.user, "pid"),

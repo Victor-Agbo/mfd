@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 from decouple import config
 
-SECRET_KEY = os.getenv("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "sosofskfosdfksf")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
-DEBUG = os.getenv("DJANGO_DEBUG")
+DEBUG = os.environ.get("DJANGO_DEBUG", "False")
 
 ALLOWED_HOSTS = [
     "web-production-ab11.up.railway.app",
