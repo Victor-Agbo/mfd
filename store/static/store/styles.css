@@ -77,8 +77,6 @@
 }
 
 .image-container {
-    width: 100%;
-    max-width: 500px;
     /* Specify the desired width */
     height: 400px;
     /* Specify the desired height */

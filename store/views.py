@@ -9,6 +9,7 @@ import os
 from django.contrib.auth.models import Group
 from datetime import datetime
 from . import models
+import requests
 
 # Create your views here.
 
@@ -89,6 +90,39 @@ def category(request, category_name):
 
 
 @login_required
+def checkout(request):
+    cart = models.User.objects.get(id=request.user.id).cart.all()
+    print(cart)
+    total = 0
+    for item in cart:
+        total += item.price
+    print(total)
+    # url = "https://api.flutterwave.com/v3/payments"
+    # headers = {
+    #     "Authorization": "Bearer FLWSECK_TEST-47dfe450627f49b6f6c22cb6fefd88aa-X"
+    # }
+    # json = {
+    #     "tx_ref": generate_name(request.user, "pid"),
+    #     "amount": str(product.price),
+    #     "currency": "NGN",
+    #     "redirect_url": "https://google.com",
+    #     "meta": {"consumer_id": 23, "consumer_mac": "92a3-912ba-1192a"},
+    #     "customer": {
+    #         "email": request.user.email,
+    #         "name": request.user,
+    #     },
+    #     "customizations": {
+    #         "title": "Marvellous",
+    #         "logo": "https://get.pxhere.com/photo/food-produce-egg-eggs-egg-yolk-animal-source-foods-989008.jpg",
+    #     },
+    # }
+    # response = requests.post(url, json=json, headers=headers)
+    # response_data = response.json()
+    # print(response_data)
+    # return HttpResponseRedirect(response_data["data"]["link"])
+
+
+@login_required
 def remove_from_cart(request, product_id):
     to_remove = models.Product.objects.get(id=product_id)
     user = models.User.objects.get(username=request.user)
@@ -128,8 +162,35 @@ def logout_view(request):
 
 @login_required
 def order(request, product_id):
-    pass
+    #return HttpResponseRedirect(f"/product/{product_id}")
+    product = models.Product.objects.get(id=product_id)
 
+    url = "https://api.flutterwave.com/v3/payments"
+    headers = {
+        "Authorization": f"Bearer FLWSECK_TEST-47dfe450627f49b6f6c22cb6fefd88aa-X"
+    }
+    json = {
+        "tx_ref": generate_name(request.user, "pid"),
+        "amount": str(product.price),
+        "currency": "NGN",
+        "redirect_url": "https://google.com",
+        "meta": {"consumer_id": 23, "consumer_mac": "92a3-912ba-1192a"},
+        "customer": {
+            "email": request.user.email,
+            "name": request.user.username,
+        },
+        "customizations": {
+            "title": "Marvellous",
+            "logo": "",
+        },
+    }
+    response = requests.post(url, json=json, headers=headers)
+    response_data = response.json()
+    print(response_data)
+    if response_data["message"] == "sucess":
+        return HttpResponseRedirect(response_data["data"]["link"])
+    else:
+        return HttpResponseRedirect(reverse(f"product/{product_id}"))
 
 def generate_name(name, ext):
     now = datetime.now()

@@ -24,6 +24,7 @@ $(document).ready(function () {
     $('#form-overlay').click(function () {
         $('#form-container').fadeOut();
         $('#form-overlay').fadeOut();
+        $('#form_add_category').fadeOut();
     });
 
 });

@@ -16,23 +16,25 @@
 
 <a href="#" data-target="slide-out" class="black-text sidenav-trigger hide-on-large-only"><i
         class="material-icons">menu</i></a>
-<div class="row" style="margin: 10px;">
-    <h3 class="category_name">{{ category_name }}</h3>
-    {% for product in products %}
-    <div class="col s12 l4 m6 s12">
-        <a href="{% url 'product' product.id %}" class="black-text">
-            <div class="card" style="border: 1px #d8d8d8 solid;">
-                <div class="card-image">
-                    <img src="/media/store/images/{{ product.image }}" alt="Image">
-                </div>
-                <div class="card-content" style="border-top: 2px dashed;">
-                    <p>{{ product.name }}</p>
-                    <strong>₦{{ product.price|floatformat:0|intcomma }}</strong>
-                </div>
-            </div>
-        </a>
-    </div>
-    {% endfor %}
-</div>
+<h3 class="category_name">{{ category_name }}</h3>
 
+<div style="justify-content: center;">
+    <div style="display: flex; flex-wrap: wrap; margin: 10px;">
+        {% for product in products %}
+        <div style="margin: 10px;">
+            <a href="{% url 'product' product.id %}" class="black-text">
+                <div class="card" style="border: 1px #d8d8d8 solid;">
+                    <div class="card-image">
+                        <img src="/media/store/images/{{ product.image }}" alt="Image">
+                    </div>
+                    <div class="card-content" style="border-top: 2px dashed;">
+                        <p>{{ product.name }}</p>
+                        <strong>₦{{ product.price|floatformat:0|intcomma }}</strong>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock body %}

@@ -1,7 +1,7 @@
 {% extends "store/layout.html" %}
-
 {% load static %}
 
+{% load humanize %}
 {% block body %}
 
 <div class="container">
@@ -9,12 +9,12 @@
     <img class="materialboxed image-container" src="/media/store/images/{{ product.image }}">
     <h4>
         <strong>
-            N {{ product.price }}
+            ₦{{ product.price|floatformat:0|intcomma }}
         </strong>
     </h4>
     <a class="waves-effect waves-light btn-large cyan darken-3" href="{% url 'add_to_cart' product.id %}">
         {{ add }}
     </a>
-    <a class="waves-effect waves-light btn-large teal accent-4">Buy Now</a>
+    <a class="waves-effect waves-light btn-large teal accent-4" href="{% url 'order' product.id %}">Buy Now</a>
 </div>
 {% endblock body %}

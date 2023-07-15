@@ -10,9 +10,10 @@ class User(AbstractUser):
 
     cart = models.ManyToManyField("Product")
     email = models.EmailField(blank=False, unique=True)
+    username = models.CharField(blank=False, unique=True, max_length=32)
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["username", "password"]
 
 
 class Category(models.Model):

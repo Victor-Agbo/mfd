@@ -34,6 +34,10 @@
     <blockquote style="border-color: #00bfa5;">No items in your cart yet... <br> Add items, and they'll appeart here!
     </blockquote>
     {% endfor %}
+    <div style="margin: 20px;">
+        <a class="waves-effect waves-light btn-large teal accent-4"
+            href="{% url 'checkout' %}"><strong>Checkout</strong></a>
+    </div>
 </div>
 
 {% endblock body %}
