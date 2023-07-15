@@ -189,7 +189,7 @@ def order(request, product_id):
     if response_data["message"] == "sucess":
         return HttpResponseRedirect(response_data["data"]["link"])
     else:
-        return HttpResponseRedirect(reverse(f"product/{product_id}"))
+        return HttpResponseRedirect(f"/product/{product_id}")
 
 def generate_name(name, ext):
     now = datetime.now()
