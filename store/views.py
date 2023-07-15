@@ -162,12 +162,11 @@ def logout_view(request):
 
 @login_required
 def order(request, product_id):
-    #return HttpResponseRedirect(f"/product/{product_id}")
     product = models.Product.objects.get(id=product_id)
 
     url = "https://api.flutterwave.com/v3/payments"
     headers = {
-        "Authorization": f"Bearer FLWSECK_TEST-47dfe450627f49b6f6c22cb6fefd88aa-X"
+        "Authorization": f"Bearer ${os.getenv('FLUTTERWAVE_KEY')}"
     }
     json = {
         "tx_ref": generate_name(request.user, "pid"),
