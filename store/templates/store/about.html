@@ -1,0 +1,17 @@
+{% extends "store/layout.html" %}
+
+{% load static %}
+{% load humanize %}
+
+{% block sidenav %}
+
+
+{% for category in categories %}
+<li><a href="{% url 'category' category %}">{{ category}}</a></li>
+{% endfor %}
+
+{% endblock sidenav %}
+
+{% block body %}
+<h1>Marvellous Store</h1>
+{% endblock body %}
