@@ -172,7 +172,6 @@ def order(request, product_id):
     product = models.Product.objects.get(id=product_id)
     url = "https://api.flutterwave.com/v3/payments"
     headers = {
-        #remember to change
         "Authorization" : f"Bearer {os.getenv('FLUTTERWAVE_KEY')}"
     }
     json = {
