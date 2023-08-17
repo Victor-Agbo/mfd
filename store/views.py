@@ -13,8 +13,10 @@ import requests
 
 # Create your views here.
 
+
 def about(request):
-    return render(request, "store/about.html", {"show_side":"show_side"})
+    return render(request, "store/about.html", {"show_side": "show_side"})
+
 
 @login_required
 def add_category(request):
@@ -46,21 +48,6 @@ def add_to_cart(request, product_id):
 
     user.save()
     return redirect(f"/product/{product_id}")
-
-
-def index(request):
-    products = models.Product.objects.all()
-    categories = models.Category.objects.all()
-    return render(
-        request,
-        "store/index.html",
-        {
-            "products": products,
-            "categories": categories,
-            "category_name": "All Items",
-            "show_side": "show_side",
-        },
-    )
 
 
 @login_required
@@ -102,8 +89,8 @@ def checkout(request):
 
     url = "https://api.flutterwave.com/v3/payments"
     headers = {
-        #remember to change
-        "Authorization" : f"Bearer {os.getenv('FLUTTERWAVE_KEY')}"
+        # remember to change
+        "Authorization": f"Bearer {os.getenv('FLUTTERWAVE_KEY')}"
     }
     json = {
         "tx_ref": generate_name(request.user, "pid"),
@@ -129,15 +116,24 @@ def checkout(request):
         return HttpResponseRedirect("/")
 
 
-@login_required
-def remove_from_cart(request, product_id):
-    to_remove = models.Product.objects.get(id=product_id)
-    user = models.User.objects.get(username=request.user)
+def index(request):
+    products = models.Product.objects.all()
+    categories = models.Category.objects.all()
+    return render(
+        request,
+        "store/index.html",
+        {
+            "products": products,
+            "categories": categories,
+            "category_name": "All Items",
+            "show_side": "show_side",
+        },
+    )
 
-    user.cart.remove(to_remove)
 
-    user.save()
-    return HttpResponseRedirect(reverse("cart"))
+def generate_name(name, ext):
+    now = datetime.now()
+    return f"{name}-{now.year}_{now.month}_{now.day}-{now.hour}_{now.minute}_{now.second}.{ext}"
 
 
 def login_view(request):
@@ -171,9 +167,7 @@ def logout_view(request):
 def order(request, product_id):
     product = models.Product.objects.get(id=product_id)
     url = "https://api.flutterwave.com/v3/payments"
-    headers = {
-        "Authorization" : f"Bearer {os.getenv('FLUTTERWAVE_KEY')}"
-    }
+    headers = {"Authorization": "FLWSECK_TEST-e78b9f5bc5530515360a65873a687363-X"}
     json = {
         "tx_ref": generate_name(request.user, "pid"),
         "amount": str(product.price),
@@ -196,10 +190,6 @@ def order(request, product_id):
         return HttpResponseRedirect(response_data["data"]["link"])
     else:
         return HttpResponseRedirect(f"/product/{product_id}")
-
-def generate_name(name, ext):
-    now = datetime.now()
-    return f"{name}-{now.year}_{now.month}_{now.day}-{now.hour}_{now.minute}_{now.second}.{ext}"
 
 
 @login_required
@@ -319,3 +309,14 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "store/register.html")
+
+
+@login_required
+def remove_from_cart(request, product_id):
+    to_remove = models.Product.objects.get(id=product_id)
+    user = models.User.objects.get(username=request.user)
+
+    user.cart.remove(to_remove)
+
+    user.save()
+    return HttpResponseRedirect(reverse("cart"))
