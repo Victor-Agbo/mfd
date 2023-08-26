@@ -222,11 +222,13 @@ It handles everything from uploading the products, to viewing them, to adding to
         - Returns an HTTP redirect to the "cart" view after successful removal from the cart.
 
   - `templates/store` folder
+    - `about.html`: Renders the about page of the website 
     - `cart.html`: To view items in cart, if any.
     - `index.html`: The home page of the app, that contains the listings in the store
     - `layout.html`: Holds the basic structure and design of each webpage
     - `login.html`: Contains html that handles login logic for users
     - `operator.html`: Holds the page to add product to the store
+    - `product.html`: Shows more information about a selected prodect when clicked from the homepage
     - `register.html`: Holds the signup page for the store
 
 ## Running My Application
@@ -242,6 +244,20 @@ It handles everything from uploading the products, to viewing them, to adding to
 1. File handling to provided images for the entries
 1. Payment pocessing through external API
 1. Full system of an e-commerce application
+
+Sure, here's the information written in a style as if you were describing it:
+
+1. **Operator's Dashboard for Uploading Entries:**
+So, in my e-commerce website, I made this special dashboard for the people who run the store. It's like the control center where they can easily add new stuff to sell, change things, or take items off the list. It'distinct because the store operators can type in all the important details about a product - like the name, description, price, and how many are available. This way, when they add a new product, it shows up for shoppers right away. They can also group products and add labels to make it simple for shoppers to find what they want. This dashboard just makes managing the store so smooth and helps keep everything up-to-date for customers.
+
+1. **File Handling for Product Images:**
+I wanted to make sure the products on my e-commerce site were visible, so I did that by adding pictures. When someone adds a new product using the dashboard, they can also put up a picture that goes with it. My Django setup is really handy because it takes care of these pictures - making sure they load fast and look nice. Also, I added descriptive text to the pictures, to give more description. Good pictures make a big difference because shoppers can actually see what they're thinking of buying. It just makes the whole shopping experience better.
+
+1. **Payment Processing through External API:**
+Making payments online should be easy and secure, right? So, I connected my e-commerce site to these special tools called APIs - Flutterwave, precisely. These tool links up smoothly with my Django site. This means customers can pay for their purchases using credit cards, digital wallets, or even bank transfers. 
+
+1. **Full System of an E-Commerce Application:**
+My e-commerce website is like this big puzzle where all the pieces fit together. It's not just one thing, it's a bunch of things that work together to make shopping online easy and fun. People can make accounts and log in safely, they can also search for stuff they want and use filters to find exactly what they're looking for. Once they find things, they can add them to a virtual cart and then buy everything together. On my side of things, I can see all the orders and make sure things are getting shipped out.
 
 ## Other Information
 
